@@ -1,10 +1,17 @@
 GStreamer Complex Variable Transforms
 =====================================
 
-Applies mathematical transforms written as functions of complex variables to video.
+Applies mathematical transforms written as functions of complex
+variables to video.
+
+Just for rough demos for now.  Includes large chunks of other
+gstreamer plugins without proper documentation or naming.
+
+DO NOT install this on a system: just for testing for now!
 
 
 Examples
 --------
 
 TODO
+
