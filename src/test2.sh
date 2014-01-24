@@ -5,9 +5,13 @@ DEV=/dev/video0
 
 #gst-launch v4l2src ! video/x-raw-yuv,width=320,height=240 !  ffmpegcolorspace  !  ffmpegcolorspace ! xvimagesink
 
-gst-launch -e --gst-plugin-path=${MYPATH}  v4l2src device=${DEV} ! video/x-raw-yuv,width=800,height=600 !  ffmpegcolorspace  ! cmplxtrans !  ffmpegcolorspace ! xvimagesink
+# on my webcam:
+#1280x720
+#960x540
+#800x448
+#640x480
 
-#gst-launch -e --gst-plugin-path=${MYPATH}  v4l2src device=${DEV} ! video/x-raw-yuv,width=640,height=480 !  ffmpegcolorspace  ! cmplxtrans !  ffmpegcolorspace ! xvimagesink
+gst-launch -e --gst-plugin-path=${MYPATH}  v4l2src device=${DEV} ! video/x-raw-yuv,width=800,height=448 !  ffmpegcolorspace  ! cmplxtrans !  ffmpegcolorspace ! xvimagesink
 
 #gst-inspect --gst-plugin-path=${MYPATH}   complextransf
 
