@@ -1,6 +1,5 @@
 /*
- * GStreamer
- * Copyright (C) 2010 Filippo Argiolas <filippo.argiolas@gmail.com>
+ * Copyright (C) 2014 Colin B. Macdonald <cbm@m.fsf.org>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -67,8 +66,8 @@ gst_cmplxtrans_base_init (gpointer gclass)
   gst_element_class_set_details_simple (element_class,
       "cmplxtrans",
       "Transform/Effect/Video",
-      "Split the image into two halves and reflect one over each other",
-      "Filippo Argiolas <filippo.argiolas@gmail.com");
+      "TODO: a particular transform",
+      "Colin Macdonald <macdonald@maths.ox.ac.uk>");
 }
 
 static gboolean
@@ -86,14 +85,18 @@ cmplxtrans_map (GstGeometricTransform * gt, gint x, gint y, gdouble * in_x,
   gdouble width = gt->width;
   gdouble height = gt->height;
 
-  /* normalize in ((-1.0, -1.0), (1.0, 1.0) */
-  norm_x = 1.57*( (2.0 * x) / width - 1.0 );
-  norm_y = 1.57*( (2.0 * y) / height - 1.0 );
+  /* normalize */
+  norm_x = 1.1*( (2.0 * x) / width - 1.0 );
+  norm_y = 1.1*( (2.0 * y) / height - 1.0 );
+  //norm_x = 2*( (2.0 * x) / width - 1.0 );
+  //norm_y = 3*( (2.0 * y) / height - 1.0 );
 
   z = norm_x + I*norm_y;
 
+  /* code leftover from the plugin I borrowed this from *.
+
   /* normalize radius to 1, simplifies following formula */
-  r = sqrt ((norm_x * norm_x + norm_y * norm_y) / 2.0);
+  //r = sqrt ((norm_x * norm_x + norm_y * norm_y) / 2.0);
 
   /* the idea is roughly to map r to tan(r) */
   /* to avoid switching back and forth to polar coordinates use
@@ -114,11 +117,16 @@ cmplxtrans_map (GstGeometricTransform * gt, gint x, gint y, gdouble * in_x,
   //norm_x *= (0.33 + 0.1 * r * r + 0.57 * pow (r, 6.0));
   //norm_y *= (0.33 + 0.1 * r * r + 0.57 * pow (r, 6.0));
   //norm_x *= 
+
+
+  /*********************************
+   * TODO: can change formula here *
+   *********************************/
   //z = 2*z;
   //z *= 2;
   //z = conj(z);
   //z = cproj(z);
-  //z = casin(1*z*z);
+  //z = casin(1*z);
   z = z*z*z;
   norm_x = creal(z);
   norm_y = cimag(z);
@@ -150,7 +158,9 @@ gst_cmplxtrans_init (GstCmplxTrans * filter, GstCmplxTransClass * gclass)
 {
   GstGeometricTransform *gt = GST_GEOMETRIC_TRANSFORM (filter);
 
-  gt->off_edge_pixels = GST_GT_OFF_EDGES_PIXELS_CLAMP;
+  /* TODO: worth playing here too */
+  //gt->off_edge_pixels = GST_GT_OFF_EDGES_PIXELS_CLAMP;
+  gt->off_edge_pixels = GST_GT_OFF_EDGES_PIXELS_IGNORE;
 }
 
 gboolean

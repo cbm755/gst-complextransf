@@ -1,6 +1,5 @@
 /*
- * GStreamer
- * Copyright (C) 2010 Filippo Argiolas <filippo.argiolas@gmail.com>
+ * Copyright (C) 2014 Colin B. Macdonald <cbm@m.fsf.org>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
  * copy of this software and associated documentation files (the "Software"),
@@ -46,7 +45,7 @@
 
 #include <gst/gst.h>
 #include "gstgeometrictransform.h"
-#include "geometricmath.h"
+//#include "geometricmath.h"
 
 G_BEGIN_DECLS
 /* #defines don't like whitespacey bits */
